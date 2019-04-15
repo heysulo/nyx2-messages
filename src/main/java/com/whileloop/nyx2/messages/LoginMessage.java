@@ -32,10 +32,17 @@ import java.util.UUID;
  * @author sulochana
  */
 public class LoginMessage extends SMessage {
+    
+    public enum LoginMechanism {
+        CREDENTIALS,
+        AUTH_TOKEN
+    }
 
     private final UUID uuid;
+    private LoginMechanism mechanism;
     private String email;
     private String password;
+    private String authToken;
 
     public LoginMessage() {
         this.uuid = UUID.randomUUID();
@@ -47,18 +54,20 @@ public class LoginMessage extends SMessage {
     }
 
     private void getCredentialsFromUser() {
-        Console console = System.console();
-        if (console != null) {
-            System.out.println("+------------------- Authentication Required -------------------+\n\n");
-            this.email = console.readLine("Email Address: ");
-            char[] pwd = console.readPassword("Password: ");
-            this.password = new String(pwd);
-            System.out.println("\n\n+---------------------------------------------------------------+");
-        } else {
-            System.err.println("Unable to access System Console.");
-            throw new RuntimeException("System Console is required for user input");
-        }
+        
 
+    }
+
+    public void setMechanism(LoginMechanism mechanism) {
+        this.mechanism = mechanism;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -67,5 +76,17 @@ public class LoginMessage extends SMessage {
 
     public String getPassword() {
         return password;
+    }
+
+    public LoginMechanism getMechanism() {
+        return mechanism;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 }
