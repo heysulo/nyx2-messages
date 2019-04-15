@@ -24,6 +24,7 @@
 package com.whileloop.nyx2.messages;
 
 import com.whileloop.sendit.messages.SMessage;
+import java.util.UUID;
 
 /**
  *
@@ -32,10 +33,12 @@ import com.whileloop.sendit.messages.SMessage;
 public class LoginResponseMessage extends SMessage {
 
     private final boolean accepted;
+    private final UUID agentUUID;
     private String authToken;
 
     public LoginResponseMessage(boolean accepted) {
         this.accepted = accepted;
+        this.agentUUID = UUID.randomUUID();
     }
 
     public boolean isAccepted() {
@@ -48,6 +51,10 @@ public class LoginResponseMessage extends SMessage {
 
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
+    }
+
+    public UUID getAgentUUID() {
+        return agentUUID;
     }
 
 }
