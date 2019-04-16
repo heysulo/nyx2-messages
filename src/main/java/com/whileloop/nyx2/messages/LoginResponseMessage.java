@@ -32,17 +32,24 @@ import java.util.UUID;
  */
 public class LoginResponseMessage extends SMessage {
 
-    private final boolean accepted;
-    private final UUID agentUUID;
-    private String authToken;
+    public enum ResponseType {
 
-    public LoginResponseMessage(boolean accepted) {
-        this.accepted = accepted;
-        this.agentUUID = UUID.randomUUID();
+        SUCCESS,
+        INVALID_CREDENTIALS,
+        AUTH_TOKEN_EXPIRED,
+        INTERNAL_ERROR
     }
 
-    public boolean isAccepted() {
-        return accepted;
+    private final ResponseType response;
+    private UUID agentUUID;
+    private String authToken;
+
+    public LoginResponseMessage(ResponseType response) {
+        this.response = response;
+    }
+
+    public ResponseType getResponse() {
+        return response;
     }
 
     public String getAuthToken() {
@@ -55,6 +62,10 @@ public class LoginResponseMessage extends SMessage {
 
     public UUID getAgentUUID() {
         return agentUUID;
+    }
+
+    public void setAgentUUID(UUID agentUUID) {
+        this.agentUUID = agentUUID;
     }
 
 }
